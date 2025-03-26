@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct StoryListView: View {
+    
+    // MARK: Constants
+    private enum Constants {
+        static let storyListHeight: CGFloat = 150
+    }
 
     // MARK: Properties
     @State var viewModel: StoryListViewModel
@@ -43,21 +48,22 @@ struct StoryListView: View {
 
     @ViewBuilder
     private var listView: some View {
-        GeometryReader { geometry in
-            List(viewModel.stories) { story in
-                /*PhotosListCell(photo: photo,
-                               containerWidth: geometry.size.width)
-                    .overlay {
-                        NavigationLink(destination: PhotoDetailsView(viewModel: .init(photo: photo))) {
-                            EmptyView()
-                        }
-                        .opacity(0)
+        VStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(alignment: .top) {
+                    ForEach(viewModel.stories, id: \.self) { story in
+                        StoryListCell(story: story)
+                            .onAppear { viewModel.storyDidAppear(story) }
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)*/
+                }
+                .padding()
             }
-            .listStyle(.plain)
-            .scrollIndicators(.hidden)
+            .frame(height: Constants.storyListHeight)
+            Spacer()
         }
     }
+}
+
+#Preview {
+    StoryListView(viewModel: StoryListViewModel())
 }

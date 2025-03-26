@@ -38,11 +38,25 @@ final class StoryListViewModel {
         loadingState = .loading
         do {
             try await Task.sleep(for: .seconds(4))
-            stories = try await storiesRepository.fetchStories()
+            let newStories = try await storiesRepository.fetchStories()
+            stories += newStories
             loadingState = .success
         } catch {
             stories.removeAll()
             loadingState = .failure(error as? HTTPRequestService.RequestError)
+        }
+    }
+    
+    @MainActor
+    func storyDidAppear(_ story: Story) {
+        if story == stories.last {
+            Task {
+                let newStories = try await storiesRepository.fetchStories()
+                let userIDs = Set(stories.map { $0.user.username })
+                let filteredStories = newStories.filter { !userIDs.contains($0.user.username) }
+                
+                stories += filteredStories
+            }
         }
     }
 }

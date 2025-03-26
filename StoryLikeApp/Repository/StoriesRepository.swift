@@ -21,12 +21,14 @@ final class StoriesRepository: StoriesRepositoryProtocol {
     // MARK: Constants
     enum Constants {
         static let perPageQueryKey: String = "per_page"
-        static let perPageValue: Int = 30
+        static let perPageQueryValue: Int = 10
+        static let pageIndexQueryKey: String = "page"
         static let unsplashEndPoint: String = "https://api.unsplash.com/photos"
     }
 
     // MARK: Properties
     private let requestHeaders: HTTPHeaders = makeHTTPHeaders()
+    private var currentPageIndex: Int = 1
 
     // MARK: DI
     @Injected(\.httpRequestService) private var requestService: HTTPRequestServiceProtocol
@@ -35,14 +37,18 @@ final class StoriesRepository: StoriesRepositoryProtocol {
     func fetchStories() async throws -> [Story] {
         let requestURL = URL(string: Constants.unsplashEndPoint)?
             .appending(queryItems: [URLQueryItem(name: Constants.perPageQueryKey,
-                                                 value: "\(Constants.perPageValue)")])
+                                                 value: "\(Constants.perPageQueryValue)"),
+                                    URLQueryItem(name: Constants.pageIndexQueryKey,
+                                                 value: "\(currentPageIndex)")])
         
         let stories = try await requestService.performRequest(requestURL: requestURL,
                                                               requestHeaders: requestHeaders,
                                                               responseType: [StoryDTO].self)
             .map { Story(with: $0) }
-        
+
         Logger.repository.info("Stories fetched successfully.")
+        currentPageIndex += 1
+        
         return stories
     }
 
