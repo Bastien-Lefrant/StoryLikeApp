@@ -10,6 +10,8 @@ import Foundation
 struct Story: Identifiable, Hashable {
     let id: String
     let user: User
+    let imageURLs: ImageURLs
+    var isLiked: Bool = false
 
     init(with storyDTO: StoryDTO) {
         self.id = storyDTO.id
@@ -17,6 +19,9 @@ struct Story: Identifiable, Hashable {
                          profileImageURLs: ImageURLs(small: storyDTO.user.profileImage.small,
                                                      medium: storyDTO.user.profileImage.medium,
                                                      large: storyDTO.user.profileImage.large))
+        self.imageURLs = ImageURLs(small: storyDTO.urls.small,
+                                   medium: storyDTO.urls.regular,
+                                   large: storyDTO.urls.full)
     }
 }
 

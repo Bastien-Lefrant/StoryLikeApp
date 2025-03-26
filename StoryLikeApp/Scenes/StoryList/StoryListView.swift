@@ -32,6 +32,9 @@ struct StoryListView: View {
         .task {
             await viewModel.loadStories()
         }
+        .fullScreenCover(isPresented: $viewModel.showStoryListDetailsView) {
+            StoryListDetailsView(viewModel: viewModel)
+        }
     }
 
     @ViewBuilder
@@ -54,6 +57,9 @@ struct StoryListView: View {
                     ForEach(viewModel.stories, id: \.self) { story in
                         StoryListCell(story: story)
                             .onAppear { viewModel.storyDidAppear(story) }
+                            .onTapGesture {
+                                viewModel.selectedStory = story
+                            }
                     }
                 }
                 .padding()

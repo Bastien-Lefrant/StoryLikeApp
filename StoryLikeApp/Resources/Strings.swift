@@ -10,7 +10,7 @@ enum Strings {
         static let home = "Home"
     }
 
-    enum StoryDetailsView {
+    enum StoryListDetailsView {
     }
 
     enum Errors {
@@ -23,5 +23,6 @@ enum Strings {
     enum Lotties {
         static let errorOccured = "ErrorOccured"
         static let mainLoader = "MainLoader"
+        static let placeholderLoader = "PlaceholderLoader"
     }
 }
