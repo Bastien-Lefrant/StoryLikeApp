@@ -22,6 +22,12 @@ final class StoryListViewModel {
     // MARK: Properties
     var loadingState: LoadingState
     var stories: [Story]
+    var selectedStory: Story? {
+        didSet {
+            showStoryListDetailsView = selectedStory != nil
+        }
+    }
+    var showStoryListDetailsView: Bool = false
 
     // MARK: DI
     @Injected(\.storiesRepository) @ObservationIgnored private var storiesRepository
@@ -38,11 +44,42 @@ final class StoryListViewModel {
         loadingState = .loading
         do {
             try await Task.sleep(for: .seconds(4))
-            stories = try await storiesRepository.fetchStories()
+            let newStories = try await storiesRepository.fetchStories()
+            stories += newStories
             loadingState = .success
         } catch {
             stories.removeAll()
             loadingState = .failure(error as? HTTPRequestService.RequestError)
         }
+    }
+    
+    @MainActor
+    func storyDidAppear(_ story: Story) {
+        if story == stories.last {
+            Task {
+                let newStories = try await storiesRepository.fetchStories()
+                let userIDs = Set(stories.map { $0.user.username })
+                let filteredStories = newStories.filter { !userIDs.contains($0.user.username) }
+                
+                stories += filteredStories
+            }
+        }
+    }
+    
+    func selectNextStory(_ ascending: Bool) {
+        guard let selectedStory,
+              let currentIndex = stories.firstIndex(where: { $0.id == selectedStory.id })else { return }
+
+        let nextIndex = ascending ? currentIndex + 1 : currentIndex - 1
+
+        guard (0..<stories.count).contains(nextIndex) else {
+            return
+        }
+
+        self.selectedStory = stories[nextIndex]
+    }
+    
+    func toggleSelectedStoryLiked() {
+        selectedStory?.isLiked.toggle()
     }
 }

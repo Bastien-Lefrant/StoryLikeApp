@@ -10,6 +10,8 @@
 		458419192D947C6700177989 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 458419182D947C6700177989 /* Factory */; };
 		4584193E2D947DEA00177989 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4584193D2D947DEA00177989 /* Lottie */; };
 		458419412D947DFC00177989 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 458419402D947DFC00177989 /* Alamofire */; };
+		4584195F2D948CC600177989 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4584195E2D948CC600177989 /* Nuke */; };
+		458419632D948D1A00177989 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 458419622D948D1A00177989 /* NukeUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,9 +60,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				458419632D948D1A00177989 /* NukeUI in Frameworks */,
 				458419412D947DFC00177989 /* Alamofire in Frameworks */,
 				458419192D947C6700177989 /* Factory in Frameworks */,
 				4584193E2D947DEA00177989 /* Lottie in Frameworks */,
+				4584195F2D948CC600177989 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +119,8 @@
 				458419182D947C6700177989 /* Factory */,
 				4584193D2D947DEA00177989 /* Lottie */,
 				458419402D947DFC00177989 /* Alamofire */,
+				4584195E2D948CC600177989 /* Nuke */,
+				458419622D948D1A00177989 /* NukeUI */,
 			);
 			productName = StoryLikeApp;
 			productReference = 458418E42D947B4E00177989 /* StoryLikeApp.app */;
@@ -175,6 +181,7 @@
 				458419172D947C6700177989 /* XCRemoteSwiftPackageReference "Factory" */,
 				4584193C2D947DEA00177989 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				4584193F2D947DFC00177989 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4584195D2D948CC600177989 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 458418E52D947B4E00177989 /* Products */;
@@ -504,6 +511,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		4584195D2D948CC600177989 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -521,6 +536,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4584193F2D947DFC00177989 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		4584195E2D948CC600177989 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4584195D2D948CC600177989 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		458419622D948D1A00177989 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4584195D2D948CC600177989 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
