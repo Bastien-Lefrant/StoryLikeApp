@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  CheerzTest
+//
+//  Created by Bastien Lefrant on 01/11/2024.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+UNSPLASH_ACCESS_KEY = acrNFO8vaP1AZHF5_hCNuW_cRlBWcDV_bWcZvsyFLVI
