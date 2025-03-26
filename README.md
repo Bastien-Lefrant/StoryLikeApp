@@ -1,9 +1,9 @@
 # StoryLikeApp
 
-**StoryLikeApp** est une application visant à reproduire l'affichage des stories instagram en récupérant des photos depuis l'API d'Unsplash.
+**StoryLikeApp** is an application designed to replicate the display of Instagram stories by fetching photos from the Unsplash API.
 
 ## Installation
 
-1. Clonez ce dépôt :
+1. Clone this repository:
    ```bash
    git clone https://github.com/username/StoryLikeApp.git
