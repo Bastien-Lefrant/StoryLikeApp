@@ -1,15 +1,15 @@
 //
-//  DependencyContainer.swift.swift
-//  CheerzTest
+//  DependenciesContainer.swift
+//  StoryLikeApp
 //
-//  Created by Bastien Lefrant on 01/11/2024.
+//  Created by Bastien Lefrant on 26/03/2025.
 //
 
 import Factory
 
 extension Container {
-    var photosRepository: Factory<PhotosRepositoryProtocol> {
-        Factory(self) { PhotosRepository() }
+    var storiesRepository: Factory<StoriesRepositoryProtocol> {
+        Factory(self) { StoriesRepository() }
     }
 
     var httpRequestService: Factory<HTTPRequestServiceProtocol> {

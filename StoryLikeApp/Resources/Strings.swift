@@ -1,19 +1,16 @@
 //
 //  Strings.swift
-//  CheerzTest
+//  StoryListView
 //
-//  Created by Bastien Lefrant on 06/11/2024.
+//  Created by Bastien Lefrant on 26/03/2025.
 //
 
 enum Strings {
-    enum PhotosListView {
+    enum StoryListView {
         static let home = "Home"
-        static let noResultMessage = "No result for:"
     }
 
-    enum PhotoDetailsView {
-        static let createdAt = "Created at:"
-        static let updatedAt = "Updated at:"
+    enum StoryDetailsView {
     }
 
     enum Errors {
@@ -26,7 +23,5 @@ enum Strings {
     enum Lotties {
         static let errorOccured = "ErrorOccured"
         static let mainLoader = "MainLoader"
-        static let noResult = "NoResult"
-        static let placeholderLoader = "PlaceholderLoader"
     }
 }

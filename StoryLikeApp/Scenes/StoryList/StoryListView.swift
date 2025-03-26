@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PhotosListView: View {
+struct StoryListView: View {
 
     // MARK: Properties
     @State var viewModel: StoryListViewModel
@@ -20,12 +20,12 @@ struct PhotosListView: View {
                 contentView
             }
             .animation(.default, value: viewModel.loadingState)
-            .navigationTitle(Strings.PhotosListView.home)
+            .navigationTitle(Strings.StoryListView.home)
         }
         .tint(Color(.textTertiary))
         .foregroundStyle(Color(.textPrimary))
         .task {
-            await viewModel.loadPhotos()
+            await viewModel.loadStories()
         }
     }
 
@@ -37,16 +37,15 @@ struct PhotosListView: View {
         case .success:
             listView
         case .failure(let error):
-            ErrorView(type: .errorOccured,
-                      message: error?.description)
+            ErrorView(message: error?.description)
         }
     }
 
     @ViewBuilder
     private var listView: some View {
         GeometryReader { geometry in
-            List(viewModel.filteredPhotos) { photo in
-                PhotosListCell(photo: photo,
+            List(viewModel.stories) { story in
+                /*PhotosListCell(photo: photo,
                                containerWidth: geometry.size.width)
                     .overlay {
                         NavigationLink(destination: PhotoDetailsView(viewModel: .init(photo: photo))) {
@@ -55,18 +54,10 @@ struct PhotosListView: View {
                         .opacity(0)
                     }
                     .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-            }
-            .overlay {
-                if viewModel.filteredPhotos.isEmpty, !viewModel.searchText.isEmpty {
-                    ErrorView(type: .noResult,
-                              message: "\(Strings.PhotosListView.noResultMessage) \(viewModel.searchText)")
-                }
+                    .listRowSeparator(.hidden)*/
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-            .searchable(text: $viewModel.searchText)
-            .animation(.default, value: viewModel.filteredPhotos)
         }
     }
 }

@@ -1,13 +1,13 @@
 //
 //  UserDTO.swift
-//  CheerzTest
+//  StoryLikeApp
 //
-//  Created by Bastien Lefrant on 02/11/2024.
+//  Created by Bastien Lefrant on 26/03/2025.
 //
 
 import Foundation
 
-extension PhotoDTO {
+extension StoryDTO {
     struct UserDTO: Decodable {
         let id: String
         let username: String
@@ -16,7 +16,7 @@ extension PhotoDTO {
 }
 
 // MARK: - Nested Types
-extension PhotoDTO.UserDTO {
+extension StoryDTO.UserDTO {
     struct ProfileImageDTO: Codable {
         let small: URL?
         let medium: URL?

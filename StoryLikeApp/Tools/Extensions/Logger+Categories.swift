@@ -1,16 +1,8 @@
 //
-//  Logger+Extensions.swift
+//  Logger+Categories.swift
 //  StoryLikeApp
 //
 //  Created by Bastien Lefrant on 26/03/2025.
-//
-
-
-//
-//  Logger+Repository.swift
-//  CheerzTest
-//
-//  Created by Bastien Lefrant on 04/11/2024.
 //
 
 import OSLog

@@ -1,5 +1,5 @@
 //
-//  PhotosRepository.swift
+//  StoriesRepository.swift
 //  CheerzTest
 //
 //  Created by Bastien Lefrant on 01/11/2024.
@@ -10,14 +10,13 @@ import Alamofire
 import Factory
 
 // MARK: - Protocol
-protocol PhotosRepositoryProtocol {
-    func fetchPhotos() async throws -> [Photo]
-    func fetchAdditionalInfosForPhoto(_ photo: Photo) async throws -> Photo.AdditionalInformations
+protocol StoriesRepositoryProtocol {
+    func fetchStories() async throws -> [Story]
 }
 
 // MARK: - Class
 /// This class is the repository responsible for fetching photos from Unsplash and returning domain objects
-final class PhotosRepository: PhotosRepositoryProtocol {
+final class StoriesRepository: StoriesRepositoryProtocol {
 
     // MARK: Constants
     enum Constants {
@@ -33,30 +32,18 @@ final class PhotosRepository: PhotosRepositoryProtocol {
     @Injected(\.httpRequestService) private var requestService: HTTPRequestServiceProtocol
 
     // MARK: Public Methods
-    func fetchPhotos() async throws -> [Photo] {
+    func fetchStories() async throws -> [Story] {
         let requestURL = URL(string: Constants.unsplashEndPoint)?
             .appending(queryItems: [URLQueryItem(name: Constants.perPageQueryKey,
                                                  value: "\(Constants.perPageValue)")])
-
-        let photos = try await requestService.performRequest(requestURL: requestURL,
-                                                             requestHeaders: requestHeaders,
-                                                             responseType: [PhotoDTO].self)
-            .map { Photo(with: $0) }
-
-        Logger.repository.info("Photos fetched successfully.")
-        return photos
-    }
-
-    func fetchAdditionalInfosForPhoto(_ photo: Photo) async throws -> Photo.AdditionalInformations {
-        let requestURL = URL(string: Constants.unsplashEndPoint)?.appendingPathComponent(photo.id)
-        let additionalInfosDTO = try await requestService.performRequest(requestURL: requestURL,
-                                                                         requestHeaders: requestHeaders,
-                                                                         responseType: AdditionalInformationsDTO.self)
-
-        Logger.repository.info("Additional infos fetched successfully.")
-
-        let additionalInfos = Photo.AdditionalInformations(with: additionalInfosDTO)
-        return additionalInfos
+        
+        let stories = try await requestService.performRequest(requestURL: requestURL,
+                                                              requestHeaders: requestHeaders,
+                                                              responseType: [StoryDTO].self)
+            .map { Story(with: $0) }
+        
+        Logger.repository.info("Stories fetched successfully.")
+        return stories
     }
 
     // MARK: Private Methods

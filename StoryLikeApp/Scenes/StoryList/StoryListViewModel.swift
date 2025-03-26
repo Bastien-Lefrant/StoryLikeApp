@@ -21,47 +21,27 @@ final class StoryListViewModel {
 
     // MARK: Properties
     var loadingState: LoadingState
-    var searchText: String
-    var photos: [Photo]
-
-    var filteredPhotos: [Photo] {
-        photos.filter {
-            guard !searchText.isEmpty else { return true }
-
-            let photoStrings = [
-                $0.user.username,
-                $0.description,
-                $0.slug
-            ].compactMap { $0?.lowercased() }
-            let lowercasedSearchText = searchText.lowercased()
-
-            return photoStrings.contains { $0.contains(lowercasedSearchText) }
-        }
-    }
+    var stories: [Story]
 
     // MARK: DI
-    @Injected(\.photosRepository) @ObservationIgnored private var photosRepository
+    @Injected(\.storiesRepository) @ObservationIgnored private var storiesRepository
 
     // MARK: Init
     init(loadingState: LoadingState = .loading,
-         searchText: String = "",
-         photos: [Photo] = []) {
+         stories: [Story] = []) {
         self.loadingState = loadingState
-        self.searchText = searchText
-        self.photos = photos
+        self.stories = stories
     }
 
     // MARK: Public Methods
-    func loadPhotos() async {
+    func loadStories() async {
         loadingState = .loading
         do {
             try await Task.sleep(for: .seconds(4))
-            let photos = try await photosRepository.fetchPhotos()
-
-            self.photos = photos
+            stories = try await storiesRepository.fetchStories()
             loadingState = .success
         } catch {
-            photos.removeAll()
+            stories.removeAll()
             loadingState = .failure(error as? HTTPRequestService.RequestError)
         }
     }
